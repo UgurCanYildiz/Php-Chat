@@ -387,7 +387,7 @@ if(mysqli_num_rows($result) > 0 ){
                     echo "<br/>";
                     echo "Tarih        : " .$row['tarih'];
                     echo "<br/>";
-                    echo "Mesaj        : " .$row['metin'] . $row['durum'];
+                    echo "Mesaj        : " .$row['metin'] ;
                 }
 
 
