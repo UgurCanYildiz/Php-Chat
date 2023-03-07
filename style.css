@@ -1,0 +1,290 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 24px;
+    border:0;
+    font-family: 'Poppins', sans-serif; 
+    text-decoration:none;
+}
+body{
+    font-family: 'Poppins', sans-serif; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.5rem;
+    background-color:rgb(33, 32, 32);
+}
+
+
+.form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 50%;
+    display: flex;
+    justify-content:center;
+    
+  }
+  
+  .form__field {
+    font-family: inherit;
+    width: 90%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
+  .form__field::placeholder {
+    color: white;
+    font-size: 20px;
+  }
+  .form__field:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+  
+ 
+  
+  .form__field:focus {
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, #11998e, #38ef7d);
+    border-image-slice: 1;
+  }
+
+  
+  /* reset input */
+  .form__field:required, .form__field:invalid {
+    box-shadow: none;
+  }
+
+input{
+    margin-top: 1.3rem;
+    
+}
+
+
+.btn{
+    margin-top: 1rem;
+    font-size: 1rem;
+    padding: 0.4rem;
+    border-radius: 40px;
+    position: relative;
+    left: 4rem;
+  cursor: pointer;
+
+    
+}
+
+.hata{
+  z-index: 1;
+  height: 150px;
+  width:100%;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #9b9b9b;
+  position: absolute;
+  top: 0;
+}
+.navbar{
+  height:2rem;
+  width: 100%;
+  box-shadow:1px 1px  1rem  1px black;
+  background-color: #2f3932;
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  
+}
+.navbar-isim{
+  position: absolute;
+  left: 0;
+  margin-left: 2rem;
+  color:white;
+  letter-spacing:1px;
+
+}
+.navbar-bildirim{
+position: absolute;
+right: 1rem;
+
+}
+.navbar-bildirim a{
+  margin-right: 2rem;
+  color: white;
+  text-decoration: none;
+}
+
+.main-screen{
+  margin-top: 2rem;
+  height: 90vh;
+  width: 50%;
+  background-color: rgb(68, 60, 60 , 0.5);
+ color: white;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow:2px 2px 20rem 1.5rem rgb(133, 107, 107);
+
+}
+.msj-write{
+  position: absolute;
+  font-size: 30px;
+  left:5rem;
+  top:5rem;  
+}
+select{
+  background-color: transparent;
+  outline: 0;
+  position: absolute;
+  top: 0.5rem;
+  left: 3.6rem;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  opacity: 1;
+  width: 200px;
+  text-align: center;
+  
+
+}
+select option{
+  font-size: 20px;
+  
+  color: white;
+  font-weight: bold;
+  background-color: rgb(68, 60, 60);
+  outline: 0;
+  width: 200px;
+}
+h3{
+  position: absolute;
+  top: 0;
+  margin-top: 1rem ;
+}
+
+textarea{
+  position: absolute;
+  left: 3px;
+  top: 3rem;
+  color: white;
+  background-color: transparent;
+  resize: none;
+  background-color: rgba(175, 157, 175, 0.2);
+  outline: 0;
+  box-shadow:20px;
+}
+.center-cizgi{
+  position: absolute;
+  height: 85%;
+  width: 2px;
+  background-color: white;
+}
+.btn-gonder{
+  position: absolute;
+  left: 3.8rem;
+  bottom: 2.3rem;
+  padding: 0.4rem;
+  width: 9rem;
+  cursor: pointer;
+
+}
+.write{
+  height: 500px;
+  width:40%;
+  background-color:  rgba(83, 62, 73, 0.2)  ;
+  position: absolute;
+  box-shadow: 2px 2px 1rem;
+
+  left:2rem;
+
+}
+
+.add{
+  position: absolute;
+  height: 500px;
+  width: 40%;
+  right: 2rem;
+  background-color:  rgba(83, 62, 73, 0.2)  ;
+  display: flex;
+  align-items: center;
+  box-shadow: 2px 2px 1rem;
+  justify-content: center;
+
+}
+
+.add-baslik{
+  position: absolute;
+  font-size: 30px;
+  top: 5rem;
+  right: 7rem;
+
+}
+.add-input{
+  position: relative;
+  bottom: 5rem;
+  color: white;
+  text-align: center;
+  outline: 0;
+  background-color: transparent;
+  border-bottom: 1px solid white;
+  margin-bottom: 1rem;
+}
+.btn-ekle{
+  position: absolute;
+  left: 4rem;
+  bottom: 9rem;
+  padding: 0.4rem;
+  width: 9rem;
+  cursor: pointer;
+  
+}
+.msj-screen{
+  position: absolute;
+  height: 35rem;
+  width: 60%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(46, 39, 39);
+  box-shadow:2px 2px 20rem 10rem rgba(144, 117, 117, 0.2);
+}
+.msj-read{
+  position: absolute;
+ margin-top: 1rem;
+}
+table{
+  padding: 0.5rem;
+  color: white;
+}
+table th,a{
+  color: red;
+  margin-left: 1rem;
+}
+td{
+  color: #38ef7d;
+}
+.btn-exit{
+  position: relative;
+  left: 12rem;
+  top: 24rem;
+  padding: 0.4rem;
+  width: 9rem;
+  cursor: pointer;
+}

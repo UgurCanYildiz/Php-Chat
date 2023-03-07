@@ -16,34 +16,90 @@ if(isset($_POST['giris'])){
             $row = mysqli_fetch_array($result);
            
             $_SESSION['oturum'] = true;
-            $_SESSION['uyeid'] = $row['id'];
+            $_SESSION['uyeid'] = $row['uyeid'];
             $_SESSION['kullaniciadi'] = $row['kullaniciadi'];
             echo "BAŞŞARILI GİRİŞ BEKLEYİN";
-            header('refresh:2;url=https://mysitedawaw.000webhostapp.com/index.php');
+            header('refresh:2;url=index.php');
 
 
         }
          else{
-            echo "Kullanıcı adı veya sifre hatalı";
+            echo "<div class='hata'>
+            Kullanıcı adı veya sifre hatalı
+        </div>";
         }
 
 
     }
 
-    echo $kullaniciadi . " ---- " . $sifre ."----" . $_SESSION['uyeid'];
+
+
+    
+    
 }
+
 
 
 ?>
 
+<?php 
+    if(isset($_GET["cikis"])){
+
+
+        echo    "<div class='hata'>
+            Çıkış Yapılıyor.
+        </div>";;
+        session_destroy();
+        header('refresh:2;url=index.php');
+
+    }
+
+?>
+
+
+<!-- HTML KODLARI--->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAT</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+
+
+
 <?php if(!isset($_SESSION['oturum'])){ ?>
 <!--SİTE FORMU-->
+
+
+
+<div class="form__group field">
 <form action="" method="post">
-<input type="text" name="kullaniciadi" placeholder="Kullanıcı adı"><br>
-<input type="password" name="sifre" placeholder="Sifre"><br>
-<button type="submit" name="giris">Giriş Yap</button>
+<input type="text" name="kullaniciadi" class="form__field" placeholder="Kullanıcı Adı :"><br>
+<input type="password" class="form__field" name="sifre" placeholder="Sifre : "><br>
+
+
+<button type="submit" name="giris" class="btn">Giriş Yap</button>
 
 </form>
+
+</div>
+
+
+
+
+
+
+
+
 
 
 <?php }else{
@@ -54,12 +110,20 @@ if(isset($_POST['giris'])){
     $row = mysqli_fetch_array($result);
     
     ?>
-    HOŞGELDİNİZ : <?php echo $_SESSION['kullaniciadi'];?><br>
-    <a href="index.php?gelenmesajlar">Yeni mesajlar (<?php echo $row['toplam']; ?>)</a>
-    <a href="">ÇIKIŞ YAP</a>
-<hr>
+    <div class="navbar">
+        <div class="navbar-isim">
+        HOŞGELDİNİZ : <?php echo $_SESSION['kullaniciadi'];?>
 
-<?php 
+        </div>
+    <div class="navbar-bildirim">
+    <a href="index.php?gelenmesajlar">Yeni mesajlar (<?php echo $row['toplam']; ?>)</a>
+    <a href="index.php?cikis">ÇIKIŞ YAP</a>
+
+    </div>
+    
+    </div>
+    
+    <?php 
     if(isset($_POST['mesajgonder'])){
         $id = $_SESSION["uyeid"];
         $uyebilgisi = $_POST['uyeler'];
@@ -67,7 +131,12 @@ if(isset($_POST['giris'])){
         $tarih = date('Y-m-d H-i-s');
 
         if (!$uyebilgisi  or !$mesaj) {
-            echo "Boş bırakkmayınız .";
+            echo    "<div class='hata'>
+            Boş Bırakmayınız.
+        </div>";
+        
+        header('refresh:2;url=index.php');
+
         }
         else{
             $insert = "INSERT INTO mesaj(gonderenid, gonderilenid, metin, durum, tarih) VALUES('$id','$uyebilgisi','$mesaj',2,'$tarih')";
@@ -90,44 +159,99 @@ if(isset($_POST['giris'])){
 
 
 
+<div class="main-screen">
+    <h3>CHAT</h3>
+
+<div class="center-cizgi">
+
+</div>
 
 
-<form action="" method="post">
-    <select name="uyeler" >
+<label for="" class="msj-write">Mesaj Gönder</label>
 
-    <?php 
-    $id = $_SESSION['uyeid'];
+<div class="write">
 
-    $select = " SELECT * FROM user WHERE uyeid != '$id'";
-    $result = mysqli_query($conn, $select);
-    
-    
-    while($row = mysqli_fetch_array($result)){
-    if(mysqli_num_rows($result) > 0 ){
-            echo '<option value="'.$row['uyeid'].'">'.$row['kullaniciadi'].'</option>';
-    }
+
+    <form action="" method="post">
+   
+
+   <select name="uyeler">
+   <option value="" selected disabled hidden>Kişiler</option>
+<?php 
+$id = $_SESSION['uyeid'];
+
+$select = " SELECT * FROM user WHERE uyeid != '$id'";
+$result = mysqli_query($conn, $select);
+
+
+while($row = mysqli_fetch_array($result)){
+if(mysqli_num_rows($result) > 0 ){
+        echo '<option value="'.$row['uyeid'].'" >'.$row['kullaniciadi'].'</option>';
 }
-    ?>
+}
+?>
 
-    </select>
+</select>
 
 
     <br>
 
-<textarea name="mesaj"  cols="30" rows="10"></textarea><br>
-<button type="submit" name="mesajgonder" >Gönder</button>
-
-
-
-
-
-
-
+<textarea name="mesaj"  cols="30" rows="10" placeholder="Metin Yazmak için"></textarea><br>
+<button type="submit" name="mesajgonder" class="btn-gonder" >Gönder</button>
 
 </form>
+</div>
+
+
+<?php 
+    if(isset($_POST['add'])){
+        $kullaniciadi = $_POST['kullaniciadi'];
+        $sifre = $_POST['sifre'];
+
+        if (!$kullaniciadi or !$sifre) {
+            echo    "<div class='hata'>
+            Boş Bırakmayınız.
+        </div>";
+
+        }else
+        {
+
+        
+            $insert = "INSERT INTO user(kullaniciadi,sifre) VALUES('$kullaniciadi','$sifre')";
+            $upload = mysqli_query($conn , $insert);
+            if ($result) {
+                echo    "<div class='hata'>
+                Eklendi.
+            </div>";
+            header('refresh:1;url=index.php');
+
+            }
+
+    }
+}
 
 
 
+    
+
+
+
+?>
+
+
+
+<label for="" class="add-baslik">Üye Ekle</label>
+<div class="add">
+<div class="add-form">
+    <form action="" method="post">
+    <input type="text" name="kullaniciadi" class="add-input" placeholder="Kullanıcı Adı :"><br>
+    <input type="password" class="add-input" name="sifre" placeholder="Sifre : "><br>
+    <button type="submit" class="btn-ekle" name="add">Ekle</button>
+        
+    </form>
+</div>
+
+</div>
 
 
 
@@ -140,12 +264,23 @@ if(isset($_POST['giris'])){
         
         $select  = mysqli_query($conn, "SELECT * FROM mesaj INNER JOIN user ON user.uyeid = mesaj.gonderenid WHERE gonderilenid = $id ");
 ?>
+
+</div>
+<div class="msj-screen">
+<div class="msj-read">
+    
+
 <table>
                         <thead>
                             <tr>
                                 <th>Kullanıcı Adı </th>
+                                <th>&nbsp;</th>
                                 <th>Tarih</th>
+                                <th>&nbsp;</th>
+
                                 <th>Durum</th>
+                                <th>&nbsp;</th>
+
                                 <th>İşlem</th>
                             </tr>
                         </thead>
@@ -154,15 +289,18 @@ if(isset($_POST['giris'])){
                             if ($row["gonderilenid"] == "$id") {
                                 # code...
                         ?>
-                            <tr>
+                            <tr">
 
                                 <td><?php echo $row["kullaniciadi"]; ?></td>
-                                <td><?php echo $row["tarih"]; ?></td>
-                                <td><?php echo $row["durum"] == 1 ? 'OKUNDU' :'Okunmadı' ?></td>
-                                <td><?php echo $row["tarih"]; ?></td>
-                                <td><?php echo $row["id"]; ?></td>
+                                <td>&nbsp;</td>
 
-                                <td><a href="index.php?mesajoku&id=<?php echo $row['id'];?>">MESAJI OKU</a></td>
+                                    <td><?php echo $row["tarih"]; ?></td>
+                                <td>&nbsp;</td>
+
+                                <td><?php echo $row["durum"] == 1 ? 'OKUNDU' :'Okunmadı' ?></td>
+
+                                <td>&nbsp;</td>
+                                <td class="b"><a href="index.php?mesajoku&id=<?php echo $row['id'];?> ">MESAJI OKU</a></td>
                                 
 
                             </tr>
@@ -173,8 +311,27 @@ if(isset($_POST['giris'])){
                         };
 
                         ?>
+
                     </table>
 
+
+
+                        <?php 
+                        
+                        if (isset($_GET['exit'])) {
+                            header('Location:index.php');
+                        }
+                        
+                        
+                        
+                        ?>
+
+
+                    <button class="btn-exit" name="geri"><a href="index.php?exit" style="color:black;padding:0.4rem;">Geri</a></button>
+
+</div>
+
+</div>
 
 
 
@@ -240,3 +397,36 @@ if(isset($_POST['giris'])){
 
 
     <?php }?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
