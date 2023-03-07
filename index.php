@@ -313,7 +313,7 @@ if(mysqli_num_rows($result) > 0 ){
                                 <td><?php echo $row["durum"] == 1 ? 'OKUNDU' :'Okunmadı' ?></td>
 
                                 <td>&nbsp;</td>
-                                <td class="b"><a href="index.php?mesajoku&id=<?php echo $row['id'];?> ">MESAJI OKU</a></td>
+                                <td><a href="index.php?mesajoku&id=<?php echo $row['id'];?> ">MESAJI OKU</a></td>
                                 
 
                             </tr>
@@ -355,61 +355,65 @@ if(mysqli_num_rows($result) > 0 ){
 
 
 
-
-        <?php 
         
-                        if(isset($_GET['mesajoku'])){
-                            echo "<hr/>";
-                            $gon = $_SESSION['uyeid'];
-                            $kid = $_GET['id'];
-                            
-                            if (!$id) {
-                                header('Location:index.php'); 
-                            }
-                            else{
-
-                                $select  = mysqli_query($conn, "SELECT * FROM mesaj INNER JOIN user ON user.uyeid = mesaj.gonderenid WHERE gonderilenid = $id  AND gonderilenid = '$gon'");
-                                
-                                if(mysqli_num_rows($select) > 0 ){
-                                    $row = mysqli_fetch_array($select);
-
-                                    $durum = 1;
-                                    $a= ("UPDATE mesaj SET durum = '1' WHERE id  = '$kid'");
-                                    $upload = mysqli_query($conn , $a);
-                                    if($upload){
-                                        
-                                        echo "bAŞARILIII";
-                                    }
+<?php 
+        
+        if(isset($_GET['mesajoku'])){
+            echo "<hr/>";
+            $gon = $_SESSION['uyeid'];
+            $kid = $_GET['id'];
+            
+           
 
 
+            if (!$id) {
+                header('Location:index.php'); 
+            }
+            else{
+                $select  = mysqli_query($conn, "SELECT * FROM mesaj INNER JOIN user ON user.uyeid = mesaj.gonderenid WHERE gonderilenid = $id  AND gonderilenid = '$gon'");
+                echo "<div class='mesajoku'>";
 
-                                    echo 'Gonderen Adı : ' .$row['kullaniciadi'] ;
-                                    echo "<br/>";
-                                    echo "Tarih : " .$row['tarih'];
-                                    echo "<br/>";
-                                    echo "Mesaj : " .$row['metin'] . $row['durum'];
-                                }
+                echo "<a href='index.php' class='btn-ana'>Anasayfa</a>";
+                if(mysqli_num_rows($select) > 0 ){
+                    $row = mysqli_fetch_array($select);
+
+                    $durum = 1;
+                    $a= ("UPDATE mesaj SET durum = '1' WHERE id  = '$kid'");
+                    $upload = mysqli_query($conn , $a);
+                    
+                    echo " <div class='mesajlar'>";
+                    echo "<br/>";
+                    echo 'Gonderen Adı : ' .$row['kullaniciadi'] ;
+                    echo "<br/>";
+                    echo "Tarih        : " .$row['tarih'];
+                    echo "<br/>";
+                    echo "Mesaj        : " .$row['metin'] . $row['durum'];
+                }
 
 
-                               
-
-
-
-                                
-                            else{
-                                header('Location:index.php');
-                            }
-                            
-
-                            }
-
-                        }
-        ?>
+               
 
 
 
+                
+            else{
+                header('Location:index.php');
+            }
+            
 
-    <?php }?>
+            }
+
+        }
+?>
+
+
+</div>
+
+<?php }?>
+</div>
+
+
+       
 
 
 
