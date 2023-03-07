@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 07 Mar 2023, 13:15:26
+-- Üretim Zamanı: 07 Mar 2023, 16:17:03
 -- Sunucu sürümü: 10.4.27-MariaDB
 -- PHP Sürümü: 8.1.12
 
@@ -35,16 +35,6 @@ CREATE TABLE `mesaj` (
   `durum` tinyint(1) NOT NULL,
   `tarih` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Tablo döküm verisi `mesaj`
---
-
-INSERT INTO `mesaj` (`id`, `gonderenid`, `gonderilenid`, `metin`, `durum`, `tarih`) VALUES
-(1, 3, 2, 'Naber', 1, '2023-03-06 11:05:20'),
-(2, 2, 3, 'iyidir senden', 1, '2023-03-06 11:05:47'),
-(3, 3, 2, 'Bendende iyi', 1, '2023-03-06 11:06:09'),
-(4, 1, 3, 'dwa', 1, '2023-03-06 22:34:59');
 
 -- --------------------------------------------------------
 
@@ -89,7 +79,7 @@ ALTER TABLE `user`
 -- Tablo için AUTO_INCREMENT değeri `mesaj`
 --
 ALTER TABLE `mesaj`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `user`
