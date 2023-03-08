@@ -97,8 +97,22 @@ if(isset($_POST['giris'])){
 </div>
 
 
+<!--Hesap bilgilerini görüntüleyip değiştiriceği alan yapılcak-->
+<?php 
+    if (isset($_GET['hesap'])) {
+     $id =$_GET['id'];
+       ?>
+
+        <div style="height:100vh;width:100%; background-color: black; z-index:200;">
+
+        </div>
 
 
+
+
+<?php
+    }
+?>
 
 
 
@@ -116,8 +130,10 @@ if(isset($_POST['giris'])){
     <div class="navbar">
         <div class="navbar-isim">
 
-        <i class="fa fa-user"></i>
+        <i class="fa fa-user"></i><a href="index.php?hesap&id=<?php echo $id;?>">
  <?php echo $_SESSION['kullaniciadi'];?>
+
+        </a>
 
         </div>
     <div class="navbar-bildirim">
@@ -163,14 +179,8 @@ logout
 
 
         }
-        
-
-
-
     }
 ?> 
-
-
 
 <div class="main-screen">
     <h3>CHAT</h3>
